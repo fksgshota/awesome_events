@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SignInHelper
   def sign_in_as(user)
     OmniAuth.config.test_mode = true
@@ -24,6 +26,8 @@ module SignInHelper
   end
 end
 
-class ActionDispatch::IntegrationTest
-  include SignInHelper
+module ActionDispatch
+  class IntegrationTest
+    include SignInHelper
+  end
 end

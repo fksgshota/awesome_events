@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'Welcomes', type: :system do
   it '/ページを表示' do
     visit root_path

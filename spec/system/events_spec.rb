@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'Events', type: :system do
   let(:event) { create(:event) }
   let(:user) { create(:user) }
