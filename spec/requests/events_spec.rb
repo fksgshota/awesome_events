@@ -7,9 +7,9 @@ RSpec.describe 'Events', type: :request do
 
     sign_in_as event_owner
 
-    expect {
+    expect do
       delete event_url(event)
-    }.to change{Event.count}.by(-1)
+    end.to change { Event.count }.by(-1)
   end
 
   it '他の人が作ったイベントは削除できない' do
@@ -19,10 +19,10 @@ RSpec.describe 'Events', type: :request do
 
     sign_in_as sign_in_user
 
-    expect {
-      expect {
+    expect do
+      expect do
         delete event_path(event)
-      }.to raise_error(ActiveRecord::RecordNotFound)
-    }.to change{Event.count}.by(0)
+      end.to raise_error(ActiveRecord::RecordNotFound)
+    end.to change { Event.count }.by(0)
   end
 end

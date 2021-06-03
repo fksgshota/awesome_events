@@ -5,7 +5,6 @@ class User < ApplicationRecord
   has_many :tickets, dependent: :nullify
   has_many :participating_events, through: :tickets, source: :event
 
-
   def self.find_or_create_from_auth_hash!(auth_hash)
     provider = auth_hash[:provider]
     uid = auth_hash[:uid]
@@ -23,13 +22,9 @@ class User < ApplicationRecord
   def check_all_events_finished
     now = Time.zone.now
 
-    if created_events.where('now < end_at', now: now).exists?
-      errors[:base] << '公開中の未終了イベントが存在します。'
-    end
+    errors[:base] << '公開中の未終了イベントが存在します。' if created_events.where('now < end_at', now: now).exists?
 
-    if participating_events.where('now < end_at', now: now).exists?
-      errors[:base] << '未終了の参加イベントが存在します。'
-    end
+    errors[:base] << '未終了の参加イベントが存在します。' if participating_events.where('now < end_at', now: now).exists?
 
     throw(:anort) unless errors.empty?
   end

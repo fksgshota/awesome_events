@@ -12,17 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby 2.6
+    - name: Set up Ruby 2.7.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: 2.7.2
 
     - name: Configure sysctl limits
       run: |
         sudo swapoff -a
         sudo sysctl -w vm.swappiness=1
         sudo sysctl -w fs.file-max=262144
-        sudos ysctl -w vm.max_map_count=262144
+        sudo sysctl -w vm.max_map_count=262144
 
     - name: Run Elasticsearch
       uses: fksgshota/elasticsearch-with-plugins-action@v1

@@ -7,15 +7,14 @@ module SignInHelper
       info: { nickname: user.name, image: user.image_url }
     )
 
-    case
-      when respond_to?(:visit)
-        visit root_path
-        click_on 'GitHubでログイン'
-      when respond_to?(:get)
-        get '/auth/github/callback'
-      else
-        raise NotImplementedError.new
-      end
+    if respond_to?(:visit)
+      visit root_path
+      click_on 'GitHubでログイン'
+    elsif respond_to?(:get)
+      get '/auth/github/callback'
+    else
+      raise NotImplementedError
+    end
 
     @current_user = user
   end

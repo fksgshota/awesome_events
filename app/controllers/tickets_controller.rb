@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   def new
-    raise ActionController::RoutingError, "ログイン状態でTicketsController#newにアクセス"
+    raise ActionController::RoutingError, 'ログイン状態でTicketsController#newにアクセス'
   end
 
   def create
@@ -10,9 +10,7 @@ class TicketsController < ApplicationController
       t.comment = params[:ticket][:comment]
     end
 
-    if @ticket.save
-      redirect_to event, notice: "このイベントに参加表明しました"
-    end
+    redirect_to event, notice: 'このイベントに参加表明しました' if @ticket.save
   end
 
   def destroy

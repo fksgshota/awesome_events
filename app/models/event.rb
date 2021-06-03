@@ -6,9 +6,9 @@ class Event < ApplicationRecord
   belongs_to :owner, class_name: 'User'
 
   validates :image,
-    content_type: [:png, :jpg, :jpeg],
-    size: { less_than_or_equal_to: 10.megabytes },
-    dimension: { width: { max:2000 }, height: { max: 2000 }}
+            content_type: %i[png jpg jpeg],
+            size: { less_than_or_equal_to: 10.megabytes },
+            dimension: { width: { max: 2000 }, height: { max: 2000 } }
 
   validates :name, length: { maximum: 50 }, presence: true
   validates :place, length: { maximum: 100 }, presence: true
@@ -25,13 +25,12 @@ class Event < ApplicationRecord
   def start_at_should_be_before_end_at
     return unless start_at && end_at
 
-    if start_at >= end_at
-      errors.add(:stat_at, 'は終了時間よりも前に設定してください')
-    end
+    errors.add(:stat_at, 'は終了時間よりも前に設定してください') if start_at >= end_at
   end
 
   def created_by?(user)
     return false unless user
+
     owner_id == user.id
   end
 

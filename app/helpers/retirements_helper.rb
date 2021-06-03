@@ -1,6 +1,5 @@
 module RetirementsHelper
-  def new
-  end
+  def new; end
 
   def create
     if current_user.destroy
