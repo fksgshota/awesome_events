@@ -40,5 +40,4 @@ jobs:
         bin/rails db:create
         bin/rails db:migrate
         bin/yarn install
-        bin/rails test
-        bin/rails test:system
+        bundle exec rspec
